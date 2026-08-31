@@ -564,13 +564,37 @@
 <h1 class="entry-title" itemprop="name">Home</h1> </header>
 <div class="entry-content" itemprop="mainContentOfPage">
 
+<!-- QUIZ -->
+<div id="quizModal" class="quiz-modal">
+
+  <div class="quiz-container">
+
+    <button
+      class="quiz-close"
+      onclick="closeQuiz()">
+      ×
+    </button>
+
+    <div id="quizContent">
+
+      <h2 id="quizQuestion"></h2>
+
+      <div id="quizOptions"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <!-- HERO -->
 <section class="hero" id="hero">
   <div class="badge"><span></span> Now serving 47 countries</div>
   <h1>Premium <em>Artisanal Air</em>, Delivered&nbsp;Fresh</h1>
   <p>Hand-curated atmospheric blends sourced from the world&#8217;s finest altitudes. Because you deserve air with <em>character</em>.</p>
   <div class="hero-buttons">
-    <button class="btn btn-primary" onclick="window.location.href='#'">Start Breathing Better →</button>
+    <button class="btn btn-primary" onclick="openQuiz()"> Start Breathing Better → </button>
     <button class="btn btn-secondary" onclick="showToast('📺 Playing: \"The Art of Nothing\" (3 min)')">▶ Watch the Story</button>
   </div>
   <div class="social-proof">
@@ -849,9 +873,145 @@
 </footer>
 
 <!-- TOAST -->
+
 <div class="toast" id="toast"></div>
 
 <script>
+
+
+
+
+  // ── QUIZ QUESTIONS ──
+
+
+
+
+  const quizQuestions = [
+    {
+      question: "What kind of environment do you prefer?",
+      options: [
+        { text: "Cool and refreshing", type: "Mountain" },
+        { text: "Warm and relaxing", type: "Coastal" },
+        { text: "Fresh and natural", type: "Forest" },
+        { text: "Clean and crisp", type: "Urban" }
+      ]
+    },
+
+    {
+      question: "What sounds most relaxing?",
+      options: [
+        { text: "Wind through the mountains", type: "Mountain" },
+        { text: "Ocean waves", type: "Coastal" },
+        { text: "Birds in the trees", type: "Forest" },
+        { text: "City sounds", type: "Urban" }
+      ]
+    },
+
+    {
+      question: "How do you want your air to feel?",
+      options: [
+        { text: "Cold and crisp", type: "Mountain" },
+        { text: "Warm and breezy", type: "Coastal" },
+        { text: "Fresh and earthy", type: "Forest" },
+        { text: "Clean and modern", type: "Urban" }
+      ]
+    }
+  ];
+
+
+  // Keeps track of where the user is in the quiz
+let currentQuestion = 0;
+
+// Stores the user's answers
+let userAnswers = [];
+
+
+function selectAnswer(answerType) {
+  // Store the user's answer
+  userAnswers[currentQuestion] = answerType;
+
+  // Check if there are more questions
+  if (currentQuestion < quizQuestions.length - 1) {
+    currentQuestion++;
+
+    // Display the next question
+    displayQuestion();
+  } else {
+    // Quiz is finished
+    const recommendation = calculateRecommendation();
+
+    console.log("Recommendation:", recommendation);
+  }
+}
+
+
+
+  function calculateRecommendation() {
+    const scores = {
+      Mountain: 0,
+      Coastal: 0,
+      Forest: 0,
+      Urban: 0
+    };
+
+    userAnswers.forEach(answer => {
+      scores[answer]++;
+    });
+
+    let recommendation = "Mountain";
+    let highestScore = scores.Mountain;
+
+    for (const type in scores) {
+      if (scores[type] > highestScore) {
+        highestScore = scores[type];
+        recommendation = type;
+      }
+    }
+
+    return recommendation;
+  }
+
+  function displayQuestion() {
+    const question = quizQuestions[currentQuestion];
+
+    document.getElementById("quizQuestion").textContent =
+      question.question;
+
+    const optionsContainer =
+      document.getElementById("quizOptions");
+
+    optionsContainer.innerHTML = "";
+
+    question.options.forEach(option => {
+
+      const button = document.createElement("button");
+
+      button.textContent = option.text;
+
+      button.classList.add("quiz-option");
+
+      button.onclick = function() {
+        selectAnswer(option.type);
+      };
+
+      optionsContainer.appendChild(button);
+    });
+  }
+
+  function openQuiz() {
+    document.getElementById("quizModal").classList.add("open");
+
+    currentQuestion = 0;
+    userAnswers = [];
+
+    displayQuestion();
+  }
+
+  function closeQuiz() {
+  document.getElementById("quizModal").classList.remove("open");
+}
+
+
   function showToast(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -869,19 +1029,19 @@
     }
   }
 
-function toggleFaq(btn) {
-  const answer = btn.nextElementSibling;
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
 
-  document.querySelectorAll('.faq-q.open').forEach(openBtn => {
-    if (openBtn !== btn) {
-      openBtn.classList.remove('open');
-      openBtn.nextElementSibling.classList.remove('open');
-    }
-  });
+    document.querySelectorAll('.faq-q.open').forEach(openBtn => {
+      if (openBtn !== btn) {
+        openBtn.classList.remove('open');
+        openBtn.nextElementSibling.classList.remove('open');
+      }
+    });
 
-  btn.classList.toggle('open');   
-  answer.classList.toggle('open');
-}
+    btn.classList.toggle('open');   
+    answer.classList.toggle('open');
+  }
 
   // MORE dropdown
   function toggleMore() {

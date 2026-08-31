@@ -11,7 +11,7 @@ python3 -m http.server 8000
 
 Then open http://localhost:8000 in your browser.
 
-What I Built
+What I Built:
 
 I built an interactive Breezy Air Type Quiz that recommends a personalized air type based on the user's preferences.
 
@@ -26,7 +26,8 @@ The air type with the highest score will be reccomended to the user
 The result includes an explanation of why the air type matches the user's preferences.
 Users can navigate backward, restart the quiz, or explore Breezy's plans.
 
-Technical Approach
+Technical Approach:
+
 The feature was built using HTML, CSS, and JavaScript.
 
 I used JavaScript to manage the quiz state, dynamically update the DOM, and calculate the recommendation. 

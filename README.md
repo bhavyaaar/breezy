@@ -17,18 +17,20 @@ I built an interactive Breezy Air Type Quiz that recommends a personalized air t
 
 I chose this feature because the existing website already promotes a "Take Our Quiz" experience, but the quiz was not implemented. I wanted to turn this existing product concept into a functional feature.
 
-How It Works
+How It Works:
+
 Users answer four multiple choice questions.
 JavaScript tracks the current question and stores the user's answers temporarily.
 Each answer contributes points toward different air types.
-The air type with the highest score becomes the recommendation.
+The air type with the highest score will be reccomended to the user
 The result includes an explanation of why the air type matches the user's preferences.
 Users can navigate backward, restart the quiz, or explore Breezy's plans.
-Technical Approach
 
+Technical Approach
 The feature was built using HTML, CSS, and JavaScript.
 
-I used JavaScript to manage the quiz state, dynamically update the DOM, and calculate the recommendation. I used a rule based scoring system rather than machine learning because the feature does not require a training dataset or backend.
+I used JavaScript to manage the quiz state, dynamically update the DOM, and calculate the recommendation. 
+I used a rule based scoring system rather than machine learning because the feature does not require a training dataset or backend.
 
 The quiz is entirely frontend based, so user responses are only held temporarily in JavaScript and are not stored externally.
 
@@ -46,4 +48,4 @@ Future Improvements
 If I had more time, I would:
 
 Store user preferences in a database so returning users could access their personalized air type.
-Improve the recommendation algorithm with more nuanced scoring.
+Improve the recommendation algorithm with more nuanced scoring, such as adding weights to the questions for more/less importance. 

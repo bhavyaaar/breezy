@@ -291,7 +291,7 @@
   .logo-row span { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; color: var(--slate-700); }
 
   /* ── SECTION UTILITY ── */
-  section { padding: 96px 24px; }
+  section { padding: 96px 24px; scroll-margin-top: 150px; }
   .container { max-width: 1100px; margin: 0 auto; }
   .section-label {
     font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px;
@@ -336,6 +336,13 @@
     box-shadow: 0 4px 16px rgba(14,165,233,0.25);
   }
   .step h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .step h3 a {
+    color: var(--sky-600);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .step h3 a:hover { color: var(--sky-700); }
   .step p { font-size: 0.9rem; color: var(--slate-500); }
 
   /* ── PRICING ── */
@@ -482,6 +489,112 @@
   }
   .toast.show { transform: translateY(0); }
 
+  /* ── QUIZ MODAL ── */
+  .quiz-modal {
+    display: none;
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .quiz-modal.open { display: flex; }
+
+  .quiz-container {
+    background: #fff; border-radius: 24px;
+    max-width: 760px; width: 100%;
+    padding: 64px 56px 48px;
+    position: relative;
+    box-shadow: var(--shadow-xl);
+    animation: quizIn 0.25s ease;
+    overflow: hidden;
+  }
+  @keyframes quizIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .quiz-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--slate-100); border: none; cursor: pointer;
+    font-size: 1.3rem; line-height: 1; color: var(--slate-600);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, color 0.2s;
+  }
+  .quiz-close:hover { background: var(--slate-200); color: var(--slate-900); }
+
+  #quizProgress {
+    text-align: center; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--sky-500); margin-bottom: 10px;
+  }
+
+  #quizQuestion {
+    font-size: 1.4rem; font-weight: 700; text-align: center;
+    margin-bottom: 28px; color: var(--slate-800);
+  }
+
+  #quizOptions {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .quiz-option {
+    padding: 16px 24px; border-radius: 999px;
+    border: 1.5px solid var(--sky-200); background: var(--sky-50);
+    font-family: inherit; font-size: 1rem; font-weight: 600;
+    color: var(--slate-700); text-align: left; cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  }
+  .quiz-option-emoji { font-size: 1.25rem; line-height: 1; }
+  .quiz-option:hover {
+    border-color: var(--sky-400); background: var(--sky-100);
+    transform: translateY(-1px);
+  }
+
+  #quizResult { text-align: center; }
+  #quizResult h2 {
+    font-size: 1.3rem; color: var(--slate-500); margin-bottom: 8px;
+  }
+  #resultType {
+    font-size: 2rem; font-weight: 900; margin-bottom: 14px;
+    background: linear-gradient(135deg, var(--sky-500), var(--violet-500));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  #resultDescription {
+    color: var(--slate-500); font-size: 0.95rem; margin-bottom: 24px;
+  }
+  .result-actions {
+    display: flex; flex-direction: column; gap: 10px; align-items: stretch;
+  }
+  .result-actions .btn { width: 100%; justify-content: center; }
+
+  #quizIntro { text-align: center; }
+  #quizPlay { display: none; }
+  .quiz-kicker {
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--sky-500); margin-bottom: 12px;
+  }
+  #quizIntro h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900;
+    margin-bottom: 16px; color: var(--slate-800);
+  }
+  .quiz-intro-copy {
+    font-size: 1.08rem; color: var(--slate-600); line-height: 1.75;
+    max-width: 540px; margin: 0 auto 28px;
+  }
+  .quiz-type-row {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin-bottom: 32px;
+  }
+  .quiz-type-row span {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 999px;
+    background: var(--sky-50); border: 1.5px solid var(--sky-200);
+    font-size: 0.85rem; font-weight: 600; color: var(--slate-700);
+  }
+  #quizIntro .btn { min-width: 200px; justify-content: center; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -527,6 +640,7 @@
       <a href="#how">How It Works</a>
       <a href="#pricing">Pricing</a>
       <a href="#testimonials">Reviews</a>
+      <a href="#" class="open-quiz-link">Take Our Quiz</a>
       <a href="#">Promotions</a>
     </div>
     <div class="more-wrap">
@@ -549,6 +663,7 @@
   <a href="#how" onclick="closeMobile()">How It Works</a>
   <a href="#pricing" onclick="closeMobile()">Pricing</a>
   <a href="#testimonials" onclick="closeMobile()">Reviews</a>
+  <a href="#" class="open-quiz-link" onclick="closeMobile()">Take Our Quiz</a>
   <a href="#">Promotions</a>
   <div class="mobile-divider"></div>
   <a href="#faq" onclick="closeMobile()">FAQ</a>
@@ -575,16 +690,45 @@
       ×
     </button>
 
-    <div id="quizContent">
+<div id="quizContent">
 
-      <h2 id="quizQuestion"></h2>
-
-      <div id="quizOptions"></div>
-
+  <div id="quizIntro">
+    <p class="quiz-kicker">3 questions · 30 seconds</p>
+    <h2>Find your Air Type.</h2>
+    <p class="quiz-intro-copy">Whether you&#8217;re mountain-crisp, coastal-warm, forest-fresh, or city-clean &#8212; there&#8217;s an air that feels like coming home. Let&#8217;s find yours.</p>
+    <div class="quiz-type-row">
+      <span>🏔️ Mountain</span>
+      <span>🏖️ Coastal</span>
+      <span>🌲 Forest</span>
+      <span>🏙️ Urban</span>
     </div>
-
+    <button class="btn btn-primary" onclick="startQuiz()">Begin Quiz →</button>
   </div>
 
+  <div id="quizPlay">
+    <p id="quizProgress"></p>
+    <h2 id="quizQuestion"></h2>
+    <div id="quizOptions"></div>
+  </div>
+
+  <div id="quizResult" style="display: none;">
+    <h2>Your Air Type</h2>
+
+    <h3 id="resultType"></h3>
+
+    <p id="resultDescription"></p>
+
+    <div class="result-actions">
+      <a href="#pricing" class="btn btn-primary quiz-plans-link">Explore our plans</a>
+      <button class="btn btn-secondary" onclick="openQuiz()">
+        Retake Quiz
+      </button>
+    </div>
+  </div>
+
+</div>
+
+  </div>
 </div>
 
 
@@ -671,7 +815,7 @@
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Take Our Quiz</h3>
+        <h3><a href="#" class="open-quiz-link">Take Our Quiz</a></h3>
         <p>Answer 47 deeply personal questions so we can recommend the air you were already breathing.</p>
       </div>
       <div class="step">
@@ -878,9 +1022,6 @@
 
 <script>
 
-
-
-
   // ── QUIZ QUESTIONS ──
 
 
@@ -890,33 +1031,41 @@
     {
       question: "What kind of environment do you prefer?",
       options: [
-        { text: "Cool and refreshing", type: "Mountain" },
-        { text: "Warm and relaxing", type: "Coastal" },
-        { text: "Fresh and natural", type: "Forest" },
-        { text: "Clean and crisp", type: "Urban" }
+        { text: "Cool and refreshing", type: "Mountain", emoji: "🏔️" },
+        { text: "Warm and relaxing", type: "Coastal", emoji: "🏖️" },
+        { text: "Fresh and natural", type: "Forest", emoji: "🌲" },
+        { text: "Clean and crisp", type: "Urban", emoji: "🏙️" }
       ]
     },
 
     {
       question: "What sounds most relaxing?",
       options: [
-        { text: "Wind through the mountains", type: "Mountain" },
-        { text: "Ocean waves", type: "Coastal" },
-        { text: "Birds in the trees", type: "Forest" },
-        { text: "City sounds", type: "Urban" }
+        { text: "Wind through the mountains", type: "Mountain", emoji: "🌬️" },
+        { text: "Ocean waves", type: "Coastal", emoji: "🌊" },
+        { text: "Birds in the trees", type: "Forest", emoji: "🐦" },
+        { text: "City sounds", type: "Urban", emoji: "🚦" }
       ]
     },
 
     {
       question: "How do you want your air to feel?",
       options: [
-        { text: "Cold and crisp", type: "Mountain" },
-        { text: "Warm and breezy", type: "Coastal" },
-        { text: "Fresh and earthy", type: "Forest" },
-        { text: "Clean and modern", type: "Urban" }
+        { text: "Cold and crisp", type: "Mountain", emoji: "❄️" },
+        { text: "Warm and breezy", type: "Coastal", emoji: "☀️" },
+        { text: "Fresh and earthy", type: "Forest", emoji: "🍃" },
+        { text: "Clean and modern", type: "Urban", emoji: "✨" }
       ]
     }
   ];
+
+  // ── RESULT DESCRIPTIONS ──
+  const resultDescriptions = {
+    Mountain: "You crave cool, crisp clarity — the kind of air that wakes you up before your coffee does. Mountain Air is thin, clean, and just a little smug about it.",
+    Coastal: "Warm, salty, and endlessly relaxed — you're basically air's version of a hammock. Coastal Air comes with a faint hint of sunscreen and zero deadlines.",
+    Forest: "Earthy, green, and full of quiet confidence. Forest Air is for people who've made peace with dirt and enjoy the sound of leaves judging them softly.",
+    Urban: "Sharp, modern, and a little chaotic in the best way. Urban Air smells like ambition and somebody else's food truck."
+  };
 
 
   // Keeps track of where the user is in the quiz
@@ -938,9 +1087,8 @@ function selectAnswer(answerType) {
     displayQuestion();
   } else {
     // Quiz is finished
-    const recommendation = calculateRecommendation();
+    showResult();
 
-    console.log("Recommendation:", recommendation);
   }
 }
 
@@ -974,6 +1122,9 @@ function selectAnswer(answerType) {
   function displayQuestion() {
     const question = quizQuestions[currentQuestion];
 
+    document.getElementById("quizProgress").textContent =
+      "Question " + (currentQuestion + 1) + " of " + quizQuestions.length;
+
     document.getElementById("quizQuestion").textContent =
       question.question;
 
@@ -985,10 +1136,17 @@ function selectAnswer(answerType) {
     question.options.forEach(option => {
 
       const button = document.createElement("button");
-
-      button.textContent = option.text;
-
       button.classList.add("quiz-option");
+
+      const emoji = document.createElement("span");
+      emoji.className = "quiz-option-emoji";
+      emoji.textContent = option.emoji;
+
+      const label = document.createElement("span");
+      label.textContent = option.text;
+
+      button.appendChild(emoji);
+      button.appendChild(label);
 
       button.onclick = function() {
         selectAnswer(option.type);
@@ -1003,6 +1161,19 @@ function selectAnswer(answerType) {
 
     currentQuestion = 0;
     userAnswers = [];
+
+    document.getElementById("quizIntro").style.display = "block";
+    document.getElementById("quizPlay").style.display = "none";
+    document.getElementById("quizResult").style.display = "none";
+  }
+
+  function startQuiz() {
+    currentQuestion = 0;
+    userAnswers = [];
+
+    document.getElementById("quizIntro").style.display = "none";
+    document.getElementById("quizPlay").style.display = "block";
+    document.getElementById("quizResult").style.display = "none";
 
     displayQuestion();
   }
@@ -1029,6 +1200,23 @@ function selectAnswer(answerType) {
     }
   }
 
+  function showResult() {
+  const recommendation = calculateRecommendation();
+
+  const resultType = document.getElementById("resultType");
+  const resultDescription =
+    document.getElementById("resultDescription");
+
+  resultType.textContent = recommendation + " Air";
+
+  resultDescription.textContent = resultDescriptions[recommendation];
+
+  document.getElementById("quizIntro").style.display = "none";
+  document.getElementById("quizPlay").style.display = "none";
+  document.getElementById("quizResult").style.display = "block";
+}
+
+  
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
 
@@ -1076,6 +1264,13 @@ function selectAnswer(answerType) {
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
+      if (a.classList.contains('open-quiz-link')) {
+        openQuiz();
+        return;
+      }
+      if (a.classList.contains('quiz-plans-link')) {
+        closeQuiz();
+      }
       const target = document.querySelector(a.getAttribute('href'));
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });

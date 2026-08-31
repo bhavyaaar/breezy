@@ -35,7 +35,7 @@ I used a rule based scoring system rather than machine learning because the feat
 
 The quiz is entirely frontend based, so user responses are only held temporarily in JavaScript and are not stored externally.
 
-Data and Security
+Data and Security:
 Only preference based information is collected.
 No personally identifiable or sensitive information is required.
 No external APIs or third party services are used.

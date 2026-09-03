@@ -2,14 +2,14 @@
 
 This repository contains the Breezy marketing homepage matching the provided design challenge.
 
+
 ## Run locally
 
-```bash
-cd /Users/bhavyarayankula/breezy
-python3 -m http.server 8000
-```
+1. Clone this repository to your machine.
+2. Open your terminal and navigate into the project directory using: cd breezy
+3. Start the local server using Python: python3 -m http.server 8000
+4. Open your browser and navigate to http://localhost:8000
 
-Then open http://localhost:8000 in your browser.
 
 What I Built:
 
